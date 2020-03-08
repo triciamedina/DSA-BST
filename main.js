@@ -26,7 +26,7 @@ function main() {
     lettersBST.insert('O');
     lettersBST.insert('N');
 
-    // return lettersBST.right.left.left.right;
+    return numbersBST
 
 }
 console.log(main())
