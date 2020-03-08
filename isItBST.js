@@ -12,23 +12,43 @@
 const BST = require('./BST');
 
 const isItBST = function(t) {
-    if (!t.left && !t.right) {
+    if (!t) {
         return true;
     }
 
-    if (t.left) {
-        if (t.key > t.left.key) {
-            return isItBST(t.left)
+    const findMin = function(t) {
+        if (!t.left) {
+            return t.key;
         }
-        return false
+        return findMin(t.left);
     }
 
-    if (t.right) {
-        if (t.key < t.right.key) {
-            return isItBST(t.right)
+    const findMax = function(t) {
+        if (!t.right) {
+            return t.key;
         }
+        return findMax(t.right);
+    }
+
+    // find the max of the left branch and check that it is less than current node
+    if (t.left) {
+        if (findMax(t.left) > t.key) {
+            return false;
+        }
+    }
+
+    // find the min of the right branch and check that it is greater than the current node
+    if (t.right) {
+        if (findMin(t.right) < t.key) {
+            return false;
+        }
+    }
+
+    if (!isItBST(t.left) || !isItBST(t.right)) {
         return false;
     }
+
+    return true;
 }
 
 let numbersBST = new BST();
